@@ -37,9 +37,9 @@ compile "io.i-t:http:1.0.0"
 ## Try it now!
 
 ```groovy
-import io.infinite.pigeon.http.HttpRequest
-import io.infinite.pigeon.http.HttpResponse
-import io.infinite.pigeon.http.SenderDefaultHttps
+import io.infinite.http.HttpRequest
+import io.infinite.http.HttpResponse
+import io.infinite.http.SenderDefaultHttps
 
         HttpRequest httpRequest = new HttpRequest(
                 url: "https://google.com",

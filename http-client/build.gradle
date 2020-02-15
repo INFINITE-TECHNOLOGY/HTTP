@@ -85,11 +85,11 @@ bintray {
     pkg {
         userOrg = "infinite-technology"
         repo = "io.i-t"
-        name = "pigeon-lib"
+        name = "http"
         desc = "HTTP Client"
-        issueTrackerUrl = "https://github.com/INFINITE-TECHNOLOGY/PIGEON/issues"
-        vcsUrl = "https://github.com/INFINITE-TECHNOLOGY/PIGEON.git"
-        websiteUrl = "https://i-t.io/Pigeon/"
+        issueTrackerUrl = "https://github.com/INFINITE-TECHNOLOGY/HTTP/issues"
+        vcsUrl = "https://github.com/INFINITE-TECHNOLOGY/HTTP.git"
+        websiteUrl = "https://i-t.io/HTTP/"
         licenses = ["Apache-2.0"]
     }
 }
