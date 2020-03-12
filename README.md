@@ -19,7 +19,7 @@ This HTTP Client library supports the following connection features:
 - HTTP (plaintext)
 - HTTPS
 - HTTPS without server certificate validations (i.e. self-signed certificates)
-- Basic Authorization
+- Basic Authentication
 - AWS Signature v4
 - Proxy
 - Connection timeout
