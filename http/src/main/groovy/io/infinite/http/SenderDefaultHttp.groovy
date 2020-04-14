@@ -10,14 +10,14 @@ import io.infinite.blackbox.BlackBox
 class SenderDefaultHttp extends SenderDefault {
 
     @Override
-    void sendHttpMessage(HttpRequest httpRequest, HttpResponse httpResponse) {
+    HttpResponse sendHttpMessage(HttpRequest httpRequest) {
         HttpURLConnection httpURLConnection = (HttpURLConnection) openConnection(httpRequest)
         log.warn("UNSECURE TEST PLAINTEXT HTTP CONNECTION")
         log.warn("DO NOT USE ON PRODUCTION")
         if (httpURLConnection.getURL().protocol.contains("https")) {
             throw new HttpException("Invalid protocol 'https' for SenderDefaultHttp in ${httpRequest.url}. Use 'http' protocol.")
         }
-        super.sendHttpMessageWithUrlConnection(httpRequest, httpResponse, httpURLConnection)
+        return super.sendHttpMessageWithUrlConnection(httpRequest, httpURLConnection)
     }
 
 }

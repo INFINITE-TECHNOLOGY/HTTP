@@ -21,7 +21,8 @@ class SenderAWS extends SenderAbstract {
 
 
     @Override
-    void sendHttpMessage(HttpRequest httpRequest, HttpResponse httpResponse) {
+    HttpResponse sendHttpMessage(HttpRequest httpRequest) {
+        HttpResponse httpResponse = new HttpResponse()
         if (httpRequest.httpProperties.get("awsAccessKey") == null || httpRequest.httpProperties.get("awsSecretKey") == null) {
             log.warn("Configuration: One of the AWS keys is null")
         }
@@ -65,6 +66,7 @@ class SenderAWS extends SenderAbstract {
             }
             httpRequest.requestStatus = HttpMessageStatuses.DELIVERED.value()
             httpResponse.status = awsResponse.httpResponse.statusCode
+            return httpResponse
         } catch (AmazonServiceException amazonServiceException) {
             log.warn("AmazonServiceException: " + amazonServiceException.statusCode)
             httpRequest.requestStatus = HttpMessageStatuses.FAILED_RESPONSE.value()
@@ -74,8 +76,10 @@ class SenderAWS extends SenderAbstract {
                 httpResponse.headers.put(httpHeader, amazonServiceException.httpHeaders.get(httpHeader))
             }
             httpResponse.body = amazonServiceException.errorMessage
-        } catch (Exception e) {
-            fail(httpRequest, e, HttpMessageStatuses.EXCEPTION as HttpMessageStatuses)
+            return httpResponse
+        } catch (Exception exception) {
+            fail(httpRequest, exception, HttpMessageStatuses.EXCEPTION)
+            throw exception
         } finally {
             log.trace("Received response data:")
             log.trace(httpResponse.toString())

@@ -10,7 +10,15 @@ import io.infinite.supplies.ast.exceptions.ExceptionUtils
 @Slf4j
 abstract class SenderAbstract {
 
-    abstract void sendHttpMessage(HttpRequest httpRequest, HttpResponse httpResponse)
+    abstract HttpResponse sendHttpMessage(HttpRequest httpRequest)
+
+    HttpResponse expectStatus(HttpRequest httpRequest, Integer expectedStatus) {
+        HttpResponse httpResponse = sendHttpMessage(httpRequest)
+        if (httpResponse.status != expectedStatus) {
+            throw new HttpException("Failed HTTP Response code: ${httpResponse.status}")
+        }
+        return httpResponse
+    }
 
     void fail(HttpRequest httpRequest, Exception connectException, HttpMessageStatuses messageStatus) {
         httpRequest.exceptionString = new ExceptionUtils().stacktrace(connectException)

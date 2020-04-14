@@ -51,7 +51,8 @@ abstract class SenderDefault extends SenderAbstract {
         return urlConnection
     }
 
-    void sendHttpMessageWithUrlConnection(HttpRequest httpRequest, HttpResponse httpResponse, HttpURLConnection httpURLConnection) {
+    HttpResponse sendHttpMessageWithUrlConnection(HttpRequest httpRequest, HttpURLConnection httpURLConnection) {
+        HttpResponse httpResponse = new HttpResponse()
         try {
             httpURLConnection.requestMethod = httpRequest.method
             for (headerName in httpRequest.headers.keySet()) {
@@ -62,13 +63,12 @@ abstract class SenderDefault extends SenderAbstract {
             }
             try {
                 httpURLConnection.connect()
-            } catch (ConnectException connectException) { //no timeout set
-                fail(httpRequest, connectException, HttpMessageStatuses.FAILED_NO_CONNECTION)
-                return
-            } catch (SocketTimeoutException connectException) {
+            } catch (ConnectException | SocketTimeoutException | UnknownHostException recoverableConnectionException) {
+                //no timeout set
                 //in this situation ONLY connection timeout; NO read timeout.
-                fail(httpRequest, connectException, HttpMessageStatuses.FAILED_NO_CONNECTION)
-                return
+                //DNS issue
+                fail(httpRequest, recoverableConnectionException, HttpMessageStatuses.FAILED_NO_CONNECTION)
+                throw recoverableConnectionException
             }
             if (httpRequest.method == "POST") {
                 DataOutputStream dataOutputStream
@@ -101,8 +101,9 @@ abstract class SenderDefault extends SenderAbstract {
                 log.warn("Failed response status: " + httpResponse.status)
                 httpRequest.requestStatus = HttpMessageStatuses.FAILED_RESPONSE.value()
             }
-        } catch (Exception e) {
-            fail(httpRequest, e, HttpMessageStatuses.EXCEPTION)
+        } catch (Exception exception) {
+            fail(httpRequest, exception, HttpMessageStatuses.EXCEPTION)
+            throw exception
         } finally {
             log.trace("Received response data:")
             log.trace(httpResponse.toString())
@@ -114,6 +115,7 @@ abstract class SenderDefault extends SenderAbstract {
                 log.warn(new ExceptionUtils().stacktrace(disconnectException))
             }
         }
+        return httpResponse
     }
 
     InputStream getInputStream(HttpURLConnection httpURLConnection) {
