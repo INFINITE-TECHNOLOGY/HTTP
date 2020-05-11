@@ -10,7 +10,7 @@ import javax.net.ssl.KeyManager
 import javax.net.ssl.SSLContext
 import java.security.SecureRandom
 
-@BlackBox(level = CarburetorLevel.METHOD)
+@BlackBox(level = CarburetorLevel.ERROR)
 @ToString(includeNames = true, includeFields = true, includeSuper = true)
 @Slf4j
 class SenderDefaultHttpsUnsecure extends SenderDefault {

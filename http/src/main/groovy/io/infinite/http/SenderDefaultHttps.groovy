@@ -8,7 +8,7 @@ import io.infinite.carburetor.CarburetorLevel
 import javax.net.ssl.HttpsURLConnection
 import javax.net.ssl.SSLSocketFactory
 
-@BlackBox(level = CarburetorLevel.METHOD)
+@BlackBox(level = CarburetorLevel.ERROR)
 @ToString(includeNames = true, includeFields = true, includeSuper = true)
 @Slf4j
 class SenderDefaultHttps extends SenderDefault {
