@@ -10,15 +10,15 @@ import com.amazonaws.util.StringInputStream
 import groovy.transform.ToString
 import groovy.util.logging.Slf4j
 import io.infinite.blackbox.BlackBox
+import io.infinite.carburetor.CarburetorLevel
 import io.infinite.http.aws.AwsErrorResponseHandler
 import io.infinite.http.aws.AwsResponseHandler
 import io.infinite.supplies.ast.exceptions.ExceptionUtils
 
-@BlackBox
+@BlackBox(level = CarburetorLevel.METHOD)
 @ToString(includeNames = true, includeFields = true, includeSuper = true)
 @Slf4j
 class SenderAWS extends SenderAbstract {
-
 
     @Override
     HttpResponse sendHttpMessage(HttpRequest httpRequest) {

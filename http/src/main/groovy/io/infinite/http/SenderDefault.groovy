@@ -3,6 +3,7 @@ package io.infinite.http
 import groovy.transform.ToString
 import groovy.util.logging.Slf4j
 import io.infinite.blackbox.BlackBox
+import io.infinite.carburetor.CarburetorLevel
 import io.infinite.supplies.ast.exceptions.ExceptionUtils
 
 import java.nio.charset.StandardCharsets
@@ -10,7 +11,7 @@ import java.nio.charset.StandardCharsets
 import static java.net.HttpURLConnection.HTTP_CREATED
 import static java.net.HttpURLConnection.HTTP_OK
 
-@BlackBox
+@BlackBox(level = CarburetorLevel.METHOD)
 @ToString(includeNames = true, includeFields = true, includeSuper = true)
 @Slf4j
 abstract class SenderDefault extends SenderAbstract {
@@ -118,6 +119,7 @@ abstract class SenderDefault extends SenderAbstract {
         return httpResponse
     }
 
+    @BlackBox(level = CarburetorLevel.ERROR)
     InputStream getInputStream(HttpURLConnection httpURLConnection) {
         InputStream inputStream = null
         if (httpURLConnection.errorStream == null) {

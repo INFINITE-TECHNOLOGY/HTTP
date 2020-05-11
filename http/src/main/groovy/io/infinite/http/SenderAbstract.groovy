@@ -3,9 +3,10 @@ package io.infinite.http
 import groovy.transform.ToString
 import groovy.util.logging.Slf4j
 import io.infinite.blackbox.BlackBox
+import io.infinite.carburetor.CarburetorLevel
 import io.infinite.supplies.ast.exceptions.ExceptionUtils
 
-@BlackBox
+@BlackBox(level = CarburetorLevel.METHOD)
 @ToString(includeNames = true, includeFields = true)
 @Slf4j
 abstract class SenderAbstract {

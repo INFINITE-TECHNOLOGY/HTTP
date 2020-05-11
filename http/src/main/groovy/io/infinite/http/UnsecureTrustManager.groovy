@@ -3,12 +3,13 @@ package io.infinite.http
 
 import groovy.transform.ToString
 import io.infinite.blackbox.BlackBox
+import io.infinite.carburetor.CarburetorLevel
 
 import javax.net.ssl.X509TrustManager
 import java.security.cert.X509Certificate
 
 @ToString(includeNames = true, includeFields = true)
-@BlackBox
+@BlackBox(level = CarburetorLevel.METHOD)
 class UnsecureTrustManager implements X509TrustManager {
 
     @Override

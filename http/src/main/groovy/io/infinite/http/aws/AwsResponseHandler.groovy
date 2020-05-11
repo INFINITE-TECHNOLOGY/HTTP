@@ -6,8 +6,9 @@ import com.amazonaws.http.HttpResponseHandler
 import com.amazonaws.util.IOUtils
 import groovy.util.logging.Slf4j
 import io.infinite.blackbox.BlackBox
+import io.infinite.carburetor.CarburetorLevel
 
-@BlackBox
+@BlackBox(level = CarburetorLevel.METHOD)
 @Slf4j
 class AwsResponseHandler implements HttpResponseHandler<AmazonWebServiceResponse<String>> {
 
@@ -22,6 +23,5 @@ class AwsResponseHandler implements HttpResponseHandler<AmazonWebServiceResponse
     boolean needsConnectionLeftOpen() {
         return false
     }
-
 
 }
