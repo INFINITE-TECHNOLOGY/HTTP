@@ -18,13 +18,13 @@ ext['springBootVersion'] = '2.1.1.RELEASE'
 
 sourceCompatibility = 1.8
 group = "io.i-t"
-version = "1.0.3"
+version = "1.0.4"
 description = "HTTP Client"
 
 repositories {
     jcenter()
     maven {
-        url  "https://dl.bintray.com/infinite-technology/io.i-t"
+        url "https://dl.bintray.com/infinite-technology/io.i-t"
     }
     mavenLocal()
 }
