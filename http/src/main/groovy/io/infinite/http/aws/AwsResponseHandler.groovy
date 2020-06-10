@@ -6,9 +6,9 @@ import com.amazonaws.http.HttpResponseHandler
 import com.amazonaws.util.IOUtils
 import groovy.util.logging.Slf4j
 import io.infinite.blackbox.BlackBox
-import io.infinite.carburetor.CarburetorLevel
+import io.infinite.blackbox.BlackBoxLevel
 
-@BlackBox(level = CarburetorLevel.METHOD)
+@BlackBox(level = BlackBoxLevel.METHOD)
 @Slf4j
 class AwsResponseHandler implements HttpResponseHandler<AmazonWebServiceResponse<String>> {
 

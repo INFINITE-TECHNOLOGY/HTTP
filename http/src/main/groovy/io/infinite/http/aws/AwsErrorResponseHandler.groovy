@@ -7,9 +7,9 @@ import com.amazonaws.services.s3.Headers
 import com.amazonaws.services.s3.model.AmazonS3Exception
 import com.amazonaws.util.IOUtils
 import io.infinite.blackbox.BlackBox
-import io.infinite.carburetor.CarburetorLevel
+import io.infinite.blackbox.BlackBoxLevel
 
-@BlackBox(level = CarburetorLevel.METHOD)
+@BlackBox(level = BlackBoxLevel.METHOD)
 class AwsErrorResponseHandler implements HttpResponseHandler<AmazonServiceException> {
 
     @Override

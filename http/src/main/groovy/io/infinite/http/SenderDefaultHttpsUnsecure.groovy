@@ -3,14 +3,14 @@ package io.infinite.http
 import groovy.transform.ToString
 import groovy.util.logging.Slf4j
 import io.infinite.blackbox.BlackBox
-import io.infinite.carburetor.CarburetorLevel
+import io.infinite.blackbox.BlackBoxLevel
 
 import javax.net.ssl.HttpsURLConnection
 import javax.net.ssl.KeyManager
 import javax.net.ssl.SSLContext
 import java.security.SecureRandom
 
-@BlackBox(level = CarburetorLevel.ERROR)
+@BlackBox(level = BlackBoxLevel.ERROR)
 @ToString(includeNames = true, includeFields = true, includeSuper = true)
 @Slf4j
 class SenderDefaultHttpsUnsecure extends SenderDefault {
