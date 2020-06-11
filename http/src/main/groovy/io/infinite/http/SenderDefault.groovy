@@ -69,7 +69,7 @@ abstract class SenderDefault extends SenderAbstract {
                 //in this situation ONLY connection timeout; NO read timeout.
                 //DNS issue
                 fail(httpRequest, recoverableConnectionException, HttpMessageStatuses.FAILED_NO_CONNECTION)
-                throw recoverableConnectionException
+                return httpResponse
             }
             if (httpRequest.method == "POST") {
                 DataOutputStream dataOutputStream
@@ -104,7 +104,7 @@ abstract class SenderDefault extends SenderAbstract {
             }
         } catch (Exception exception) {
             fail(httpRequest, exception, HttpMessageStatuses.EXCEPTION)
-            throw exception
+            return httpResponse
         } finally {
             log.trace("Received response data:")
             log.trace(httpResponse.toString())
