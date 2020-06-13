@@ -110,7 +110,13 @@ abstract class SenderDefault extends SenderAbstract {
             log.trace(httpResponse.toString())
             try {
                 httpURLConnection.disconnect()
-                closeInputStream(httpURLConnection)
+                if (httpURLConnection.errorStream == null) {
+                    if (httpURLConnection.responseCode == HTTP_OK) {
+                        httpURLConnection.inputStream.close()
+                    }
+                } else {
+                    httpURLConnection.errorStream.close()
+                }
             } catch (Exception disconnectException) {
                 log.warn("Exception during releasing connection", disconnectException)
             }
@@ -129,16 +135,6 @@ abstract class SenderDefault extends SenderAbstract {
             inputStream = httpURLConnection.errorStream
         }
         return inputStream
-    }
-
-    void closeInputStream(HttpURLConnection httpURLConnection) {
-        if (httpURLConnection.errorStream == null) {
-            if (httpURLConnection.responseCode == HTTP_OK) {
-                httpURLConnection.inputStream.close()
-            }
-        } else {
-            httpURLConnection.errorStream.close()
-        }
     }
 
 }
