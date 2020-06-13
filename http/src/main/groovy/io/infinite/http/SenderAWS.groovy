@@ -68,7 +68,7 @@ class SenderAWS extends SenderAbstract {
             httpResponse.status = awsResponse.httpResponse.statusCode
             return httpResponse
         } catch (AmazonServiceException amazonServiceException) {
-            log.warn("AmazonServiceException: " + amazonServiceException.statusCode)
+            log.warn("AmazonServiceException: " + amazonServiceException.statusCode, amazonServiceException)
             httpRequest.requestStatus = HttpMessageStatuses.FAILED_RESPONSE.value()
             httpRequest.exceptionString = new ExceptionUtils().stacktrace(amazonServiceException)
             httpResponse.status = amazonServiceException.statusCode

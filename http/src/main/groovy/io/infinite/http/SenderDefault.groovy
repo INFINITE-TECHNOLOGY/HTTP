@@ -112,8 +112,7 @@ abstract class SenderDefault extends SenderAbstract {
                 httpURLConnection.disconnect()
                 closeInputStream(httpURLConnection)
             } catch (Exception disconnectException) {
-                log.warn("Exception during releasing connection:")
-                log.warn(new ExceptionUtils().stacktrace(disconnectException))
+                log.warn("Exception during releasing connection", disconnectException)
             }
         }
         return httpResponse

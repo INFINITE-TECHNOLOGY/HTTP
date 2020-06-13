@@ -21,10 +21,8 @@ abstract class SenderAbstract {
         return httpResponse
     }
 
-    void fail(HttpRequest httpRequest, Exception connectException, HttpMessageStatuses messageStatus) {
-        httpRequest.exceptionString = new ExceptionUtils().stacktrace(connectException)
-        log.warn("Exception during sending:")
-        log.warn(httpRequest.exceptionString)
+    void fail(HttpRequest httpRequest, Exception exception, HttpMessageStatuses messageStatus) {
+        log.warn("Exception during sending", exception)
         httpRequest.requestStatus = messageStatus.value()
     }
 
