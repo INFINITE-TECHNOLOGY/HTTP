@@ -23,6 +23,7 @@ abstract class SenderAbstract {
 
     void fail(HttpRequest httpRequest, Exception exception, HttpMessageStatuses messageStatus) {
         log.warn("Exception during sending", exception)
+        httpRequest.exceptionString = new ExceptionUtils().stacktrace(exception)
         httpRequest.requestStatus = messageStatus.value()
     }
 

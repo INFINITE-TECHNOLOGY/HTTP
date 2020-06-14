@@ -13,7 +13,6 @@ import io.infinite.blackbox.BlackBox
 import io.infinite.blackbox.BlackBoxLevel
 import io.infinite.http.aws.AwsErrorResponseHandler
 import io.infinite.http.aws.AwsResponseHandler
-import io.infinite.supplies.ast.exceptions.ExceptionUtils
 
 @BlackBox(level = BlackBoxLevel.METHOD)
 @ToString(includeNames = true, includeFields = true, includeSuper = true)
@@ -68,12 +67,12 @@ class SenderAWS extends SenderAbstract {
             httpResponse.status = awsResponse.httpResponse.statusCode
             return httpResponse
         } catch (AmazonServiceException amazonServiceException) {
-            log.warn("AmazonServiceException: " + amazonServiceException.statusCode, amazonServiceException)
-            httpRequest.requestStatus = HttpMessageStatuses.FAILED_RESPONSE.value()
-            httpRequest.exceptionString = new ExceptionUtils().stacktrace(amazonServiceException)
+            fail(httpRequest, amazonServiceException, HttpMessageStatuses.FAILED_RESPONSE)
             httpResponse.status = amazonServiceException.statusCode
-            for (httpHeader in amazonServiceException.httpHeaders.keySet()) {
-                httpResponse.headers.put(httpHeader, amazonServiceException.httpHeaders.get(httpHeader))
+            if (amazonServiceException.httpHeaders != null) {
+                for (httpHeader in amazonServiceException.httpHeaders.keySet()) {
+                    httpResponse.headers.put(httpHeader, amazonServiceException.httpHeaders.get(httpHeader))
+                }
             }
             httpResponse.body = amazonServiceException.errorMessage
             return httpResponse
