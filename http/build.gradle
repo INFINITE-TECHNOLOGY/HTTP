@@ -18,7 +18,7 @@ ext['springBootVersion'] = '2.1.1.RELEASE'
 
 sourceCompatibility = 1.8
 group = "io.i-t"
-version = "1.1.2"
+version = "1.2.0"
 description = "HTTP Client"
 
 repositories {
@@ -36,7 +36,7 @@ sourceSets {
 
 dependencies {
     compileOnly 'org.codehaus.groovy:groovy-all:2.5.4'
-    compile 'io.i-t:blackbox:2.1.0'
+    compile 'io.i-t:blackbox:2.2.0'
     compile 'io.i-t:supplies:2.0.0'
     compile group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.11.449'
 }
