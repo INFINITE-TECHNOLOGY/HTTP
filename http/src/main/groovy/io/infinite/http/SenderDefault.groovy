@@ -75,7 +75,7 @@ abstract class SenderDefault extends SenderAbstract {
                 DataOutputStream dataOutputStream
                 dataOutputStream = new DataOutputStream(httpURLConnection.outputStream)
                 if (httpRequest.body != null) {
-                    dataOutputStream.writeUTF(httpRequest.body)
+                    dataOutputStream.write(httpRequest.body.getBytes("UTF-8"))
                 } else {
                     log.warn("POST request with empty body")
                 }
