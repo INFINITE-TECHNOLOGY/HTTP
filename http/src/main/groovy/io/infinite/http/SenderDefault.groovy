@@ -16,9 +16,6 @@ import static java.net.HttpURLConnection.HTTP_OK
 @Slf4j
 abstract class SenderDefault extends SenderAbstract {
 
-    Integer DEFAULT_CONNECT_TIMEOUT = 15000
-    Integer DEFAULT_READ_TIMEOUT = 15000
-
     URLConnection openConnection(HttpRequest httpRequest) {
         URL url = new URL(httpRequest.url)
         URLConnection urlConnection
@@ -31,12 +28,12 @@ abstract class SenderDefault extends SenderAbstract {
         if (httpRequest.httpProperties?.get("connectTimeout") != null && httpRequest.httpProperties?.get("connectTimeout") == true) {
             urlConnection.connectTimeout = httpRequest.httpProperties?.get("connectTimeout") as int
         } else {
-            urlConnection.connectTimeout = DEFAULT_CONNECT_TIMEOUT
+            urlConnection.connectTimeout = httpRequest.connectTimeout
         }
         if (httpRequest.httpProperties?.get("readTimeout") != null && httpRequest.httpProperties?.get("readTimeout") == true) {
             urlConnection.readTimeout = httpRequest.httpProperties?.get("readTimeout") as int
         } else {
-            urlConnection.readTimeout = DEFAULT_READ_TIMEOUT
+            urlConnection.readTimeout = httpRequest.readTimeout
         }
         if (httpRequest.httpProperties?.get("basicAuthEnabled") != null && httpRequest.httpProperties?.get("basicAuthEnabled") == true) {
             String username = httpRequest.httpProperties?.get("username")

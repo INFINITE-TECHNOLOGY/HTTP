@@ -12,5 +12,7 @@ class HttpRequest extends HttpMessageAbstract {
     final Date sendDate = new Date()
     Map<String, Object> httpProperties = new HashMap<>()
     Map<String, Object> extensions = new HashMap<>()
+    Integer connectTimeout = 15000
+    Integer readTimeout = 15000
 
 }
