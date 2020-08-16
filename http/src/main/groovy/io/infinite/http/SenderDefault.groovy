@@ -4,7 +4,6 @@ import groovy.transform.ToString
 import groovy.util.logging.Slf4j
 import io.infinite.blackbox.BlackBox
 import io.infinite.blackbox.BlackBoxLevel
-import io.infinite.supplies.ast.exceptions.ExceptionUtils
 
 import java.nio.charset.StandardCharsets
 
@@ -28,12 +27,12 @@ abstract class SenderDefault extends SenderAbstract {
         if (httpRequest.httpProperties?.get("connectTimeout") != null && httpRequest.httpProperties?.get("connectTimeout") == true) {
             urlConnection.connectTimeout = httpRequest.httpProperties?.get("connectTimeout") as int
         } else {
-            urlConnection.connectTimeout = httpRequest.connectTimeout
+            urlConnection.connectTimeout = httpRequest.connectTimeoutSeconds * 1000
         }
         if (httpRequest.httpProperties?.get("readTimeout") != null && httpRequest.httpProperties?.get("readTimeout") == true) {
             urlConnection.readTimeout = httpRequest.httpProperties?.get("readTimeout") as int
         } else {
-            urlConnection.readTimeout = httpRequest.readTimeout
+            urlConnection.readTimeout = httpRequest.readTimeoutSeconds * 1000
         }
         if (httpRequest.httpProperties?.get("basicAuthEnabled") != null && httpRequest.httpProperties?.get("basicAuthEnabled") == true) {
             String username = httpRequest.httpProperties?.get("username")
