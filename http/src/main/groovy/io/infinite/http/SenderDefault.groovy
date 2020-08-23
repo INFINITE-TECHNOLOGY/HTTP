@@ -55,7 +55,7 @@ abstract class SenderDefault extends SenderAbstract {
             for (headerName in httpRequest.headers.keySet()) {
                 httpURLConnection.setRequestProperty(headerName, httpRequest.headers.get(headerName))
             }
-            if (httpRequest.method == "POST") {
+            if (httpRequest.body != null && httpRequest.body != "") {
                 httpURLConnection.doOutput = true
             }
             try {
@@ -67,14 +67,10 @@ abstract class SenderDefault extends SenderAbstract {
                 fail(httpRequest, recoverableConnectionException, HttpMessageStatuses.FAILED_NO_CONNECTION)
                 return httpResponse
             }
-            if (httpRequest.method == "POST") {
+            if (httpRequest.body != null && httpRequest.body != "") {
                 DataOutputStream dataOutputStream
                 dataOutputStream = new DataOutputStream(httpURLConnection.outputStream)
-                if (httpRequest.body != null) {
-                    dataOutputStream.write(httpRequest.body.getBytes("UTF-8"))
-                } else {
-                    log.warn("POST request with empty body")
-                }
+                dataOutputStream.write(httpRequest.body.getBytes("UTF-8"))
                 dataOutputStream.flush()
                 dataOutputStream.close()
             }
